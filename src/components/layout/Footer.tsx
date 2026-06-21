@@ -10,7 +10,7 @@ export function Footer() {
       <Container>
         <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr_1fr] lg:gap-10">
           <div>
-            <Logo />
+            <Logo idPrefix="footer-logo" />
             <p className="mt-5 max-w-md text-sm leading-7 text-[var(--muted)]">{company.description}</p>
           </div>
           <div>

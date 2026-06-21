@@ -154,7 +154,7 @@ export function PageRefreshLoader() {
         isLoading ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      <Logo compact className="pointer-events-none absolute left-1/2 top-1/2 [&_svg]:!h-20 [&_svg]:!w-20 animate-[site-loader-logo-pulse_1.15s_ease-in-out_infinite]" />
+      <Logo compact idPrefix="refresh-loader-logo" className="pointer-events-none absolute left-1/2 top-1/2 [&_svg]:!h-20 [&_svg]:!w-20 animate-[site-loader-logo-pulse_1.15s_ease-in-out_infinite]" />
     </div>
   );
 }
