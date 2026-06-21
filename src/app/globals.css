@@ -1,26 +1,188 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7fbff;
+  --foreground: #18243f;
+  --surface: #ffffff;
+  --surface-elevated: #eff9f7;
+  --surface-glass: rgba(255, 255, 255, 0.78);
+  --muted: #60708a;
+  --border: rgba(35, 51, 107, 0.12);
+  --border-strong: rgba(29, 194, 198, 0.3);
+  --primary: #1dc2c6;
+  --secondary: #9be183;
+  --accent: #f16930;
+  --success: #256b52;
+  --warning: #f8c70e;
+  --button-foreground: #ffffff;
+  --logo-ring: rgba(255, 255, 255, 0.58);
+  --nav-background: rgba(247, 251, 255, 0.88);
+  --footer-background: #eef8f7;
+  --section-contrast: #edf8f4;
+  --hero-glow: rgba(29, 194, 198, 0.22);
+  --gradient-brand: linear-gradient(135deg, #f16930 0%, #f8c70e 28%, #9be183 62%, #1dc2c6 100%);
+  --gradient-warm: linear-gradient(135deg, #f16930 0%, #f8c70e 100%);
+  --gradient-green: linear-gradient(135deg, #9be183 0%, #256b52 100%);
+  --gradient-cool: linear-gradient(135deg, #1dc2c6 0%, #23336b 100%);
+  --gradient-fresh: linear-gradient(135deg, #1dc1c5 0%, #9ce182 100%);
+  --gradient-surface: linear-gradient(135deg, rgba(29, 194, 198, 0.12), rgba(155, 225, 131, 0.16), rgba(248, 199, 14, 0.12));
+  --hero-grid:
+    linear-gradient(rgba(35, 51, 107, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35, 51, 107, 0.045) 1px, transparent 1px);
+  --shadow-soft: 0 24px 80px rgba(35, 51, 107, 0.1);
+  --shadow-glow: 0 20px 80px rgba(29, 194, 198, 0.22);
+  --shadow-card: 0 18px 48px rgba(35, 51, 107, 0.1);
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 999px;
+  --container: min(100% - 1.25rem, 1180px);
+  --container-wide: min(100% - 1.25rem, 1440px);
+  --nav-height: 4.25rem;
+  --z-nav: 50;
+  --z-overlay: 80;
+  --z-modal: 100;
+  --z-loader: 120;
+}
+
+.light {
+  --background: #f7fbff;
+  --foreground: #18243f;
+  --surface: #ffffff;
+  --surface-elevated: #eff9f7;
+  --surface-glass: rgba(255, 255, 255, 0.72);
+  --muted: #60708a;
+  --border: rgba(35, 51, 107, 0.12);
+  --border-strong: rgba(29, 194, 198, 0.3);
+  --button-foreground: #ffffff;
+  --nav-background: rgba(247, 251, 255, 0.88);
+  --footer-background: #eef8f7;
+  --section-contrast: #edf8f4;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(29, 194, 198, 0.18), transparent 28rem),
+    radial-gradient(circle at 84% 10%, rgba(248, 199, 14, 0.18), transparent 24rem),
+    linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #eef8f7 100%);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--button-foreground);
+}
+
+img {
+  max-width: 100%;
+}
+
+.section-y {
+  padding-block: clamp(3.75rem, 8vw, 9rem);
+}
+
+.text-gradient {
+  background: var(--gradient-brand);
+  background-clip: text;
+  color: transparent;
+}
+
+.gradient-border {
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    var(--gradient-brand) border-box;
+}
+
+.hover-card,
+.hover-lift,
+.hover-glow,
+.hover-gradient {
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background 260ms ease;
+}
+
+.hover-card:hover,
+.hover-lift:hover {
+  transform: translateY(-6px);
+}
+
+.hover-glow:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.hover-gradient:hover {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    var(--gradient-brand) border-box;
+}
+
+@keyframes hero-product-fade {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes site-loader-logo-pulse {
+  0% {
+    filter: drop-shadow(0 10px 24px rgba(29, 194, 198, 0.18));
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(0.9) rotate(-4deg);
+  }
+
+  50% {
+    filter: drop-shadow(0 18px 34px rgba(241, 105, 48, 0.32));
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.12) rotate(4deg);
+  }
+
+  100% {
+    filter: drop-shadow(0 10px 24px rgba(29, 194, 198, 0.18));
+    opacity: 0.72;
+    transform: translate(-50%, -50%) scale(0.9) rotate(-4deg);
+  }
+}
+
+html.site-is-loading .site-refresh-loader {
+  opacity: 1 !important;
+  pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --container: min(100% - 2rem, 1180px);
+    --container-wide: min(100% - 2rem, 1440px);
+    --nav-height: 5rem;
+  }
 }
