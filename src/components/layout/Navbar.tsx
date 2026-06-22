@@ -54,41 +54,41 @@ export function Navbar() {
           </Button>
         </motion.div>
       </Container>
-      <Container className="flex h-[var(--nav-height)] items-center justify-between gap-3 lg:hidden">
+      <Container className="flex h-[var(--nav-height)] items-center justify-between gap-2 lg:hidden">
         <motion.button
           variants={navItem}
-          className="-ml-2 grid size-11 shrink-0 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)]"
+          className="-ml-2 grid size-12 shrink-0 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)]"
           aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isMenuOpen}
           onClick={() => setIsMenuOpen((current) => !current)}
         >
           {isMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </motion.button>
-        <motion.div variants={navItem} className="min-w-0 flex-1">
-          <a href="#" className="inline-flex min-w-0 items-center gap-2.5 text-[var(--foreground)]" aria-label={company.name}>
+        <motion.div variants={navItem} className="flex min-w-0 flex-1 items-center">
+          <a href="#" className="inline-flex h-12 min-w-0 items-center gap-2.5 text-[var(--foreground)]" aria-label={company.name}>
             <Logo compact linked={false} idPrefix="navbar-mobile-logo" className="pointer-events-none grid size-10 shrink-0 place-items-center [&_svg]:!h-10 [&_svg]:!w-10 [&_svg]:overflow-visible" />
             <span className="truncate font-[family-name:var(--font-sora)] text-[1.35rem] font-bold tracking-[0.02em]">
               SUN SHINE
             </span>
           </a>
         </motion.div>
-        <motion.div variants={navItem} className="flex shrink-0 items-center gap-1">
+        <motion.div variants={navItem} className="flex h-12 shrink-0 items-center gap-1">
           <a
-            className="grid size-10 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)]"
+            className="grid size-12 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)]"
             href={`tel:${company.phone.replaceAll(" ", "")}`}
             aria-label="Call sales"
           >
             <Phone className="size-5" />
           </a>
           <a
-            className="hidden size-10 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)] min-[420px]:grid"
+            className="hidden size-12 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)] min-[420px]:grid"
             href={`mailto:${company.email}`}
             aria-label="Email sales"
           >
             <Mail className="size-5" />
           </a>
           <a
-            className="px-1.5 text-sm font-semibold text-[var(--primary)] transition hover:text-[var(--accent)]"
+            className="inline-flex h-12 items-center px-1.5 text-sm font-semibold text-[var(--primary)] transition hover:text-[var(--accent)]"
             href="/contact"
           >
             Contact
@@ -120,7 +120,7 @@ export function Navbar() {
               exit={{ x: "-104%", opacity: 0.9 }}
               transition={{ type: "spring", stiffness: 360, damping: 34 }}
             >
-              <div className="border-b border-[var(--border)] p-5">
+              <div className="border-b border-[var(--border)] px-5 py-4">
                 <div className="inline-flex items-center gap-3 text-[var(--foreground)]">
                   <Logo compact linked={false} idPrefix="mobile-drawer-logo" className="shrink-0 [&_svg]:h-11 [&_svg]:w-11" />
                   <div>
@@ -133,12 +133,12 @@ export function Navbar() {
                   </div>
                 </div>
               </div>
-              <nav className="grid gap-1 p-4" aria-label="Mobile navigation">
+              <nav className="grid gap-1 px-4 pb-3 pt-4" aria-label="Mobile navigation">
                 {navigationItems.map((item, index) => (
                   <motion.a
                     key={item.href}
                     href={item.href}
-                    className="group flex items-center justify-between rounded-[var(--radius-md)] px-4 py-3.5 font-[family-name:var(--font-sora)] text-base font-semibold text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)] hover:text-[var(--accent)]"
+                    className="group flex items-center justify-between rounded-[var(--radius-md)] px-4 py-3 font-[family-name:var(--font-sora)] text-base font-semibold text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)] hover:text-[var(--accent)]"
                     onClick={() => setIsMenuOpen(false)}
                     initial={{ x: -18, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -150,7 +150,7 @@ export function Navbar() {
                   </motion.a>
                 ))}
               </nav>
-              <div className="mt-auto grid gap-3 border-t border-[var(--border)] p-4">
+              <div className="grid gap-3 border-t border-[var(--border)] px-4 pb-5 pt-4">
                 <Button href="/contact" className="w-full" size="md">
                   Contact Us
                 </Button>

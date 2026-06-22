@@ -88,6 +88,12 @@ body {
     linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #eef8f7 100%);
 }
 
+@media (min-width: 1024px) {
+  body {
+    zoom: 0.9;
+  }
+}
+
 ::selection {
   background: var(--accent);
   color: var(--button-foreground);
