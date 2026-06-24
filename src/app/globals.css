@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: #f7fbff;
   --foreground: #18243f;
@@ -60,6 +62,39 @@
   --nav-background: rgba(247, 251, 255, 0.88);
   --footer-background: #eef8f7;
   --section-contrast: #edf8f4;
+  --hero-glow: rgba(29, 194, 198, 0.22);
+  --hero-grid:
+    linear-gradient(rgba(35, 51, 107, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(35, 51, 107, 0.045) 1px, transparent 1px);
+  --shadow-soft: 0 24px 80px rgba(35, 51, 107, 0.1);
+  --shadow-glow: 0 20px 80px rgba(29, 194, 198, 0.22);
+  --shadow-card: 0 18px 48px rgba(35, 51, 107, 0.1);
+  --input-background: rgba(255, 255, 255, 0.8);
+  --overlay-scrim: rgba(24, 36, 63, 0.24);
+}
+
+.dark {
+  --background: #0c1220;
+  --foreground: #e7edf7;
+  --surface: #151d30;
+  --surface-elevated: #1a2540;
+  --surface-glass: rgba(21, 29, 48, 0.78);
+  --muted: #9aa8be;
+  --border: rgba(231, 237, 247, 0.1);
+  --border-strong: rgba(29, 194, 198, 0.35);
+  --button-foreground: #ffffff;
+  --nav-background: rgba(12, 18, 32, 0.92);
+  --footer-background: #101728;
+  --section-contrast: #121a2e;
+  --hero-glow: rgba(29, 194, 198, 0.12);
+  --hero-grid:
+    linear-gradient(rgba(231, 237, 247, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(231, 237, 247, 0.04) 1px, transparent 1px);
+  --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 20px 80px rgba(29, 194, 198, 0.15);
+  --shadow-card: 0 18px 48px rgba(0, 0, 0, 0.3);
+  --input-background: rgba(21, 29, 48, 0.92);
+  --overlay-scrim: rgba(0, 0, 0, 0.48);
 }
 
 @theme inline {
@@ -85,7 +120,10 @@ body {
   background:
     radial-gradient(circle at 16% 8%, rgba(29, 194, 198, 0.18), transparent 28rem),
     radial-gradient(circle at 84% 10%, rgba(248, 199, 14, 0.18), transparent 24rem),
-    linear-gradient(180deg, #f7fbff 0%, #ffffff 42%, #eef8f7 100%);
+    linear-gradient(180deg, var(--background) 0%, var(--surface) 42%, var(--footer-background) 100%);
+  transition:
+    background 320ms ease,
+    color 320ms ease;
 }
 
 @media (min-width: 1024px) {

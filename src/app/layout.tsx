@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Sora } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { PageRefreshLoader } from "@/components/layout/PageRefreshLoader";
+import { ThemeScript } from "@/components/layout/ThemeScript";
 import { company } from "@/data/company";
 import "./globals.css";
 
@@ -35,8 +36,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${sora.variable} h-full scroll-smooth`}
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="min-h-full bg-[var(--background)] text-[var(--foreground)] antialiased">
         <Navbar />
         <main className="overflow-hidden">{children}</main>

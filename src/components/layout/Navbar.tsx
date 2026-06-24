@@ -7,6 +7,7 @@ import { navItem, navShell } from "@/animations/navLoad";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/layout/Container";
 import { Logo } from "@/components/layout/Logo";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { company, navigationItems } from "@/data/company";
 
 export function Navbar() {
@@ -37,18 +38,19 @@ export function Navbar() {
               key={item.href}
               href={item.href}
               variants={navItem}
-              className="font-[family-name:var(--font-sora)] text-[1.18rem] font-semibold tracking-[0.01em] text-[#18243f] transition hover:text-[var(--accent)]"
+              className="font-[family-name:var(--font-sora)] text-[1.18rem] font-semibold tracking-[0.01em] text-[var(--foreground)] transition hover:text-[var(--accent)]"
             >
               {item.label}
             </motion.a>
           ))}
         </nav>
-        <motion.div variants={navItem} className="flex items-center gap-3">
+        <motion.div variants={navItem} className="flex items-center gap-2">
+          <ThemeToggle />
           <Button
             href="/contact"
             variant="outline"
             size="md"
-            className="gradient-border font-[family-name:var(--font-sora)] font-semibold text-[#18243f]"
+            className="gradient-border font-[family-name:var(--font-sora)] font-semibold text-[var(--foreground)]"
           >
             Contact Us
           </Button>
@@ -65,30 +67,31 @@ export function Navbar() {
           {isMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </motion.button>
         <motion.div variants={navItem} className="flex min-w-0 flex-1 items-center">
-          <a href="#" className="inline-flex h-12 min-w-0 items-center gap-2.5 text-[var(--foreground)]" aria-label={company.name}>
-            <Logo compact linked={false} idPrefix="navbar-mobile-logo" className="pointer-events-none grid size-10 shrink-0 place-items-center [&_svg]:!h-10 [&_svg]:!w-10 [&_svg]:overflow-visible" />
-            <span className="truncate font-[family-name:var(--font-sora)] text-[1.35rem] font-bold tracking-[0.02em]">
+          <a href="#" className="inline-flex h-10 min-w-0 items-center gap-2 text-[var(--foreground)]" aria-label={company.name}>
+            <Logo compact linked={false} idPrefix="navbar-mobile-logo" className="pointer-events-none grid size-8 shrink-0 place-items-center [&_svg]:!h-8 [&_svg]:!w-8 [&_svg]:overflow-visible" />
+            <span className="truncate font-[family-name:var(--font-sora)] text-[1.05rem] font-bold leading-none tracking-[0.02em]">
               SUN SHINE
             </span>
           </a>
         </motion.div>
-        <motion.div variants={navItem} className="flex h-12 shrink-0 items-center gap-1">
+        <motion.div variants={navItem} className="flex h-10 shrink-0 items-center gap-0.5">
+          <ThemeToggle />
           <a
-            className="grid size-12 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)]"
+            className="grid size-10 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)]"
             href={`tel:${company.phone.replaceAll(" ", "")}`}
             aria-label="Call sales"
           >
             <Phone className="size-5" />
           </a>
           <a
-            className="hidden size-12 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)] min-[420px]:grid"
+            className="hidden size-10 place-items-center rounded-[var(--radius-full)] text-[var(--foreground)] transition hover:bg-[var(--surface-elevated)] min-[420px]:grid"
             href={`mailto:${company.email}`}
             aria-label="Email sales"
           >
             <Mail className="size-5" />
           </a>
           <a
-            className="inline-flex h-12 items-center px-1.5 text-sm font-semibold text-[var(--primary)] transition hover:text-[var(--accent)]"
+            className="inline-flex h-10 items-center px-1 text-sm font-semibold text-[var(--primary)] transition hover:text-[var(--accent)]"
             href="/contact"
           >
             Contact
@@ -107,7 +110,7 @@ export function Navbar() {
             <motion.button
               type="button"
               aria-label="Close navigation menu"
-              className="absolute inset-0 bg-[#18243f]/24 backdrop-blur-[2px]"
+              className="absolute inset-0 bg-[var(--overlay-scrim)] backdrop-blur-[2px]"
               onClick={() => setIsMenuOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
