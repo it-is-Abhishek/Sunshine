@@ -1,3 +1,5 @@
+"use client";
+
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { Reveal } from "@/components/animations/Reveal";
 import { Container } from "@/components/layout/Container";
@@ -7,28 +9,37 @@ import { GlassCard } from "@/components/ui/GlassCard";
 import { HeroProductSlider } from "@/components/sections/HeroProductSlider";
 import { isVideoAsset } from "@/components/ui/ProductVisual";
 import { capabilityHighlights, company } from "@/data/company";
-import { featuredProducts } from "@/data/products";
+import { products } from "@/data/products";
 import { scaleIn } from "@/animations/scaleIn";
+import { useState } from "react";
 
 export function Hero() {
-  const heroProduct = featuredProducts[0];
-  const heroSlides = featuredProducts.flatMap((product) =>
-    product.media?.length
-      ? product.media.map((item) => ({
-          ...item,
-          title: product.title,
-        }))
-      : [
-          {
-            id: product.id,
-            type: isVideoAsset(product.image) ? "video" as const : "image" as const,
-            src: product.image,
-            alt: product.title,
-            title: product.title,
-          },
-        ],
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  );
+  
+    const heroSlides = products.flatMap((product) =>
+      product.media?.length
+        ? product.media.map((item) => ({
+            id: item.id,
+            type: item.type as "image" | "video",
+            src: item.src,
+            alt: item.alt,
+            title: product.title,
+            product,
+          }))
+        : [
+            {
+              id: product.id,
+              type: isVideoAsset(product.image) ? "video" as const : "image" as const,
+              src: product.image,
+              alt: product.title,
+              title: product.title,
+              product,
+            },
+          ]
+    );
+
+  const currentProduct = heroSlides[activeIndex]?.product ?? products[0];
 
   return (
     <section className="relative isolate overflow-hidden pt-6 md:pt-12">
@@ -62,21 +73,40 @@ export function Hero() {
         </Reveal>
         <Reveal variants={scaleIn} className="relative">
           <div className="absolute -inset-5 -z-10 rounded-[var(--radius-xl)] bg-[image:var(--gradient-brand)] opacity-20 blur-2xl" />
-          <GlassCard className="overflow-hidden p-2.5 sm:p-3">
-            <HeroProductSlider slides={heroSlides} />
-            <div className="grid gap-4 p-4 md:grid-cols-[1fr_auto] md:items-end md:p-5">
-              <div>
-                <h2 className="text-xl font-semibold text-[var(--foreground)] md:text-2xl">{heroProduct.title}</h2>
-                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{heroProduct.description}</p>
+          <GlassCard className="overflow-hidden p-5">
+            
+
+            <HeroProductSlider
+              slides = {heroSlides}
+              onSlideChange={setActiveIndex}
+            />
+
+            <div className="grid gap-4 p-5 md:grid-cols-[0.9fr_1.1fr] md:items-start">
+
+
+             <div className="flex h-15 items-center justify-center rounded-2xl border border-slate-200 bg-white px-3 shadow-sm">
+                <h2 className="whitespace-nowrap bg-gradient-to-r from-[#F59E0B] via-[#84CC16] to-[#06B6D4] bg-clip-text text-2xl font-extrabold leading-none tracking-tight text-transparent">
+                  {currentProduct.title}
+                </h2>
               </div>
-              <div className="grid gap-2">
-                {heroProduct.specs.map((spec) => (
-                  <span key={spec} className="inline-flex items-center gap-2 text-sm text-[var(--muted)]">
-                    <CheckCircle2 className="size-4 text-[var(--success)]" />
-                    {spec}
-                  </span>
-                ))}
-              </div>
+
+            
+                  <div className="flex max-w-[420px] flex-col gap-1">
+                    {currentProduct.specs.map((spec) => (
+                      <div
+                        key={spec}
+                        className="flex h-12 items-center gap-3 rounded-xl border border-emerald-100 bg-emerald-50 px-5 shadow-sm transition-all duration-300 hover:border-emerald-200 hover:bg-emerald-100/70 hover:shadow-md"
+                      >
+                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white shadow-sm">
+                          <CheckCircle2 className="h-2 w-2 text-emerald-600" />
+                        </div>
+
+                        <span className="flex-1 text-base font-semibold leading-5 text-slate-700">
+                          {spec}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
             </div>
           </GlassCard>
         </Reveal>

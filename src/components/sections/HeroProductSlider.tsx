@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import type { Product } from "@/types/content";
 
 type HeroProductSlide = {
   id: string;
@@ -9,14 +10,24 @@ type HeroProductSlide = {
   title: string;
   src: string;
   alt: string;
+  product: Product;
 };
 
 type HeroProductSliderProps = {
   slides: HeroProductSlide[];
+  onSlideChange?: (index: number) => void;
 };
 
-export function HeroProductSlider({ slides }: HeroProductSliderProps) {
+export function HeroProductSlider({
+  slides,
+  onSlideChange,
+ }: HeroProductSliderProps) {
+
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    onSlideChange?.(activeIndex);
+  }, [activeIndex, onSlideChange]);
 
   useEffect(() => {
     if (slides.length < 2) {
@@ -25,7 +36,7 @@ export function HeroProductSlider({ slides }: HeroProductSliderProps) {
 
     const timer = window.setInterval(() => {
       setActiveIndex((currentIndex) => (currentIndex + 1) % slides.length);
-    }, 3500);
+    }, 2500);
 
     return () => window.clearInterval(timer);
   }, [slides.length]);
@@ -37,13 +48,13 @@ export function HeroProductSlider({ slides }: HeroProductSliderProps) {
   }
 
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-md)] bg-[var(--surface-elevated)] sm:aspect-[16/11] lg:aspect-[4/3]">
+    <div className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-md)] bg-white p-4 sm:p-6">
       {activeSlide.type === "video" ? (
         <video
           key={activeSlide.id}
           src={activeSlide.src}
           aria-label={activeSlide.alt}
-          className="size-full animate-[hero-product-fade_500ms_ease] object-cover"
+          className="animate-[hero-product-fade_500ms_ease] object-contain"
           autoPlay
           muted
           loop
@@ -58,7 +69,7 @@ export function HeroProductSlider({ slides }: HeroProductSliderProps) {
           fill
           priority
           sizes="(min-width: 1024px) 46vw, 100vw"
-          className="animate-[hero-product-fade_500ms_ease] object-cover"
+          className="size-full animate-[hero-product-fade_500ms_ease] object-contain"
         />
       )}
       <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 md:bottom-4">
